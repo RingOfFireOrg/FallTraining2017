@@ -14,8 +14,9 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void robotInit() {
-		DriverStation.reportError("BrysonWasHere", false);
+		DriverStation.reportError("Blake was here", true);
 		DriverStation.reportWarning("Paul and Tanya", false);
+		DriverStation.reportError("BrysonWasHere", false);
 		DriverStation.reportWarning("Alan was here", false);
 	}
 
