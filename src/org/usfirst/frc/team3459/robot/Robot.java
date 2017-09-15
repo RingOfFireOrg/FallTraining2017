@@ -14,12 +14,9 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void robotInit() {
-<<<<<<< HEAD
-		DriverStation.reportError("Blake was here", printTrace);
-=======
-	DriverStation.reportWarning("Paul and Tanya", false);
->>>>>>> branch 'master' of https://github.com/RingOfFireOrg/FallTraining2017.git
-	}
+		DriverStation.reportError("Blake was here", true);
+		DriverStation.reportWarning("Paul and Tanya", false);
+		}
 
 	/**
 	 * This function is called once when we go into the autonomous mode
