@@ -14,7 +14,11 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void robotInit() {
+<<<<<<< HEAD
 		DriverStation.reportError("Blake was here", printTrace);
+=======
+	DriverStation.reportWarning("Paul and Tanya", false);
+>>>>>>> branch 'master' of https://github.com/RingOfFireOrg/FallTraining2017.git
 	}
 
 	/**
