@@ -16,7 +16,10 @@ public class Robot extends IterativeRobot {
 	public void robotInit() {
 		DriverStation.reportError("Blake was here", true);
 		DriverStation.reportWarning("Paul and Tanya", false);
-		}
+
+		DriverStation.reportError("BrysonWasHere", false);
+
+	}
 
 	/**
 	 * This function is called once when we go into the autonomous mode
