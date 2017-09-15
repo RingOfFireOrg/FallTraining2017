@@ -1,5 +1,6 @@
 package org.usfirst.frc.team3459.robot;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
 
 /**
@@ -13,6 +14,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void robotInit() {
+		DriverStation.reportError("BrysonWasHere", false);
 	}
 
 	/**
