@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.IterativeRobot;
  * "Robot")
  */
 public class Robot extends IterativeRobot {
+	UltrasonicSensor frontSensor = new UltrasonicSensor(RobotMap.frontSensor);
 	/**
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
@@ -32,6 +33,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousPeriodic() {
+		DriverStation.reportWarning("Distance:" + frontSensor.getDistance(), false);
 	}
 
 	/**
