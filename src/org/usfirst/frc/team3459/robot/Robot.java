@@ -2,12 +2,14 @@ package org.usfirst.frc.team3459.robot;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * Don't change the name of this or it won't work. (The manifest looks for
  * "Robot")
  */
 public class Robot extends IterativeRobot {
+	UltrasonicSensor frontSensor = new UltrasonicSensor(RobotMap.frontSensor);
 	/**
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
@@ -18,6 +20,7 @@ public class Robot extends IterativeRobot {
 		DriverStation.reportWarning("Paul and Tanya", false);
 		DriverStation.reportError("BrysonWasHere", false);
 		DriverStation.reportWarning("Alan was here", false);
+		DriverStation.reportWarning("Will Was Here", false);
 	}
 
 	/**
@@ -32,6 +35,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousPeriodic() {
+		SmartDashboard.putNumber("Distance", frontSensor.getDistance());
 	}
 
 	/**
