@@ -35,7 +35,6 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousPeriodic() {
-		DriverStation.reportWarning("Distance:" + frontSensor.getDistance(), false);
 		SmartDashboard.putNumber("Distance", frontSensor.getDistance());
 	}
 
