@@ -2,6 +2,7 @@ package org.usfirst.frc.team3459.robot;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * Don't change the name of this or it won't work. (The manifest looks for
@@ -35,6 +36,7 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousPeriodic() {
 		DriverStation.reportWarning("Distance:" + frontSensor.getDistance(), false);
+		SmartDashboard.putNumber("Distance", frontSensor.getDistance());
 	}
 
 	/**
