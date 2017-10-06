@@ -23,6 +23,7 @@ public class Robot extends IterativeRobot {
 		DriverStation.reportError("BrysonWasHere", false);
 		DriverStation.reportWarning("Alan was here", false);
 		DriverStation.reportWarning("Will Was Here", false);
+		DriverStation.reportWarning("rose", false);
 	}
 
 	/**
