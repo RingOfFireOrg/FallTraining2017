@@ -23,11 +23,8 @@ public class Robot extends IterativeRobot {
 		DriverStation.reportError("BrysonWasHere", false);
 		DriverStation.reportWarning("Alan was here", false);
 		DriverStation.reportWarning("Will Was Here", false);
-<<<<<<< HEAD
 		DriverStation.reportWarning("rose", false);
-=======
 		DriverStation.reportWarning("Jason was here", true);
->>>>>>> branch 'master' of https://github.com/RingOfFireOrg/FallTraining2017.git
 	}
 
 	/**
