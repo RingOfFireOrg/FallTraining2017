@@ -18,12 +18,16 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void robotInit() {
-		DriverStation.reportError("Blake was here!", true);
+		DriverStation.reportError("Blake was here!", false);
 		DriverStation.reportWarning("Paul and Tanya", false);
 		DriverStation.reportError("BrysonWasHere", false);
 		DriverStation.reportWarning("Alan was here", false);
 		DriverStation.reportWarning("Will Was Here", false);
+<<<<<<< HEAD
 		DriverStation.reportWarning("rose", false);
+=======
+		DriverStation.reportWarning("Jason was here", true);
+>>>>>>> branch 'master' of https://github.com/RingOfFireOrg/FallTraining2017.git
 	}
 
 	/**
