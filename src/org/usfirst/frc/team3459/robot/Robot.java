@@ -12,6 +12,7 @@ import com.kauailabs.navx.frc.AHRS;
 public class Robot extends IterativeRobot {
 	UltrasonicSensor frontSensor = new UltrasonicSensor(RobotMap.frontSensor);
 	AHRS ahrs;
+	DriveTrain driveTrain = new DriveTrain();
 	/**
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
@@ -69,5 +70,6 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void testPeriodic() {
+		driveTrain.testMotor(0, 0.5);
 	}
 }
