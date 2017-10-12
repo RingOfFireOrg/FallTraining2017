@@ -16,16 +16,21 @@ public class DriveTrain {
 			motor0.set(speed);
 			break;
 		case 1:
-			motor0.set(speed);
+			motor1.set(speed);
 			break;
 		case 2:
-			motor0.set(speed);
+			motor2.set(speed);
 			break;
 		case 3:
-			motor0.set(speed);
+			motor3.set(speed);
 			break;
 		}
 	}
 	
-
+public void drive(double x, double y){
+	motor1.set(x);
+	motor3.set(x);
+	motor2.set(y);
+	motor0.set(y);
+}
 }

@@ -2,6 +2,7 @@ package org.usfirst.frc.team3459.robot;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import com.kauailabs.navx.frc.AHRS;
 
@@ -13,6 +14,7 @@ public class Robot extends IterativeRobot {
 	UltrasonicSensor frontSensor = new UltrasonicSensor(RobotMap.frontSensor);
 	AHRS ahrs;
 	DriveTrain driveTrain = new DriveTrain();
+	Joystick stick = new Joystick(1);
 	/**
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
@@ -56,6 +58,9 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void teleopPeriodic() {
+		double x = stick.getX();
+		double y = stick.getY();
+		driveTrain.drive(x, y);
 	}
 
 	/**
