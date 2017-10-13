@@ -9,6 +9,7 @@ public class DriveTrain {
 	 Victor motor3 = new Victor(3);
       
 	public DriveTrain() {
+		motor2.setInverted(true);
 	}
 	public void testMotor(int motor,double speed){
 		switch(motor){
