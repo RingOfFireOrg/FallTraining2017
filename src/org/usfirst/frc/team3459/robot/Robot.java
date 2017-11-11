@@ -79,6 +79,12 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void testPeriodic() {
-		driveTrain.testMotor(0, 0.5);
+		boolean triggerPressed = stick.getTrigger();
+		if(triggerPressed){
+			driveTrain.drive(stick.getY(), 0);	
+		}
+		else{
+			driveTrain.drive(0, stick.getY());
+		}
 	}
 }
