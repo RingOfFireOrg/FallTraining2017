@@ -1,6 +1,7 @@
 package org.usfirst.frc.team3459.robot;
 
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -21,14 +22,12 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void robotInit() {
-		DriverStation.reportError("Blake was here!", false);
-		DriverStation.reportWarning("Paul and Tanya", false);
-		DriverStation.reportError("BrysonWasHere", false);
-		DriverStation.reportWarning("Alan was here", false);
-		DriverStation.reportWarning("Will Was Here", false);
-		DriverStation.reportWarning("rose", false);
-		DriverStation.reportWarning("Jason was here", true);
-		DriverStation.reportWarning("Kayla is here", true);
+		try {
+			ahrs = new AHRS(I2C.Port.kOnboard);
+		} catch (RuntimeException ex) {
+			DriverStation.reportError("Error instantiating navX MXP:  " + ex.getMessage(), true);
+		}
+		ahrs.reset();
 	}
 
 	/**
@@ -58,17 +57,14 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void teleopPeriodic() {
-		double xSpeed = stick.getX();
-		double ySpeed = stick.getY();
+		double joyAngle = stick.getDirectionDegrees();
+		double joyMagnitude = stick.getMagnitude();
 		boolean triggerPressed = stick.getTrigger();
 		
 		if(!triggerPressed){   // if trigger not pressed, slow down
-			xSpeed = xSpeed / 2;   
-			ySpeed = ySpeed / 2;
+			joyMagnitude = joyMagnitude / 2;   
 		}
-		driveTrain.drive(xSpeed, ySpeed);
-	
-		
+		driveTrain.drive(joyAngle, joyMagnitude, ahrs.getAngle());
 	}
 
 	/**
