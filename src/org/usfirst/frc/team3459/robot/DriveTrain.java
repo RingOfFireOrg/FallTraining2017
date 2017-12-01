@@ -28,10 +28,10 @@ public class DriveTrain {
 		}
 	}
 	
-public void drive(double x, double y){
-	motor1.set(x);
-	motor3.set(x);
-	motor2.set(y);
-	motor0.set(y);
+public void drive(double x, double y, double twist){
+	motor1.set(x + (0.5*twist));
+	motor3.set(x - (0.5*twist));
+	motor2.set(y + (0.5*twist));
+	motor0.set(y - (0.5*twist));
 }
 }
