@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import com.kauailabs.navx.frc.AHRS;
 
@@ -22,8 +23,10 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void robotInit() {
+		DriverStation.reportWarning("Pesky code", false);
 		try {
-			ahrs = new AHRS(I2C.Port.kOnboard);
+//			ahrs = new AHRS(I2C.Port.kOnboard);
+			ahrs = new AHRS(SerialPort.Port.kUSB);
 		} catch (RuntimeException ex) {
 			DriverStation.reportError("Error instantiating navX MXP:  " + ex.getMessage(), true);
 		}
@@ -50,6 +53,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void teleopInit() {
+		ahrs.reset();
 	}
 
 	/**
@@ -60,11 +64,23 @@ public class Robot extends IterativeRobot {
 		double joyAngle = stick.getDirectionDegrees();
 		double joyMagnitude = stick.getMagnitude();
 		boolean triggerPressed = stick.getTrigger();
+		boolean doTheTwist = stick.getRawButton(2);
+		
+		SmartDashboard.putBoolean("twist", doTheTwist);
+		
+		
 		
 		if(!triggerPressed){   // if trigger not pressed, slow down
 			joyMagnitude = joyMagnitude / 2;   
 		}
-		driveTrain.drive(joyAngle, joyMagnitude, ahrs.getAngle());
+		if(doTheTwist){
+			driveTrain.drive(stick.getTwist());
+		}
+		else{
+		   driveTrain.drive(joyAngle, joyMagnitude, ahrs.getAngle());
+		}
+//		driveTrain.drive(stick.getTwist());
+		SmartDashboard.putNumber("gyro", ahrs.getAngle());
 	}
 
 	/**
