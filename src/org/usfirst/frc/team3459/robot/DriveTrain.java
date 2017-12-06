@@ -27,11 +27,26 @@ public class DriveTrain {
 			break;
 		}
 	}
-	
+protected double rangeFix(double input, double limitLow, double limitHigh) {
+	if (input < limitLow) {
+		return limitLow;
+	}
+	if (input > limitHigh) {
+		return limitHigh;
+	}
+	return input;
+}
+protected double computeTwist(double x, double y, double twist) {
+	double rate = Math.max(x,y);
+	return ((1-rate)*twist);
+}
+
 public void drive(double x, double y, double twist){
-	motor1.set(x + (0.5*twist));
-	motor3.set(x - (0.5*twist));
-	motor2.set(y + (0.5*twist));
-	motor0.set(y - (0.5*twist));
+	double twistFactor = computeTwist(x, y, twist);
+	
+	motor1.set(rangeFix(x + twistFactor, -1.0, 1.0));
+	motor3.set(rangeFix(x - twistFactor, -1.0, 1.0));
+	motor2.set(rangeFix(y - twistFactor, -1.0, 1.0));
+	motor0.set(rangeFix(y + twistFactor, -1.0, 1.0));
 }
 }

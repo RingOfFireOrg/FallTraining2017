@@ -46,6 +46,12 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("Distance", frontSensor.getDistance());
 	}
 
+	protected double createDeadZone(double a) {
+		if (Math.abs(a) < 0.1) {
+			return (0.0);
+		}
+		return (a);
+	}
 	/**
 	 * This function is called once when we go into the teleop mode
 	 */
@@ -62,6 +68,10 @@ public class Robot extends IterativeRobot {
 		double ySpeed = stick.getY();
 		boolean triggerPressed = stick.getTrigger();
 		double twist = stick.getTwist();
+		
+		xSpeed = createDeadZone(xSpeed);
+		ySpeed = createDeadZone(ySpeed);
+		twist = createDeadZone(twist);
 		
 		if(!triggerPressed){   // if trigger not pressed, slow down
 			xSpeed = xSpeed / 2;   
