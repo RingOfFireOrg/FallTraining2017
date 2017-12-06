@@ -1,8 +1,10 @@
 package org.usfirst.frc.team3459.robot;
 
+import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import com.kauailabs.navx.frc.AHRS;
 
@@ -15,6 +17,7 @@ public class Robot extends IterativeRobot {
 	AHRS ahrs;
 	DriveTrain driveTrain = new DriveTrain();
 	Joystick stick = new Joystick(1);
+	AnalogInput light1 = new AnalogInput(0);
 	/**
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
@@ -29,6 +32,7 @@ public class Robot extends IterativeRobot {
 		DriverStation.reportWarning("rose", false);
 		DriverStation.reportWarning("Jason was here", true);
 		DriverStation.reportWarning("Kayla is here", true);
+		DriverStation.reportWarning("Rob was here", true);
 	}
 
 	/**
@@ -44,6 +48,16 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void autonomousPeriodic() {
 		SmartDashboard.putNumber("Distance", frontSensor.getDistance());
+		while (true) {
+			int value = light1.getValue();
+			SmartDashboard.putNumber("Light1", value);
+			if (value < 505) {
+				driveTrain.drive(0, 0, 0.2);
+			} else {
+				driveTrain.drive(0, 0, -0.2);
+			}
+			Timer.delay(0.05);
+		}
 	}
 
 	protected double createDeadZone(double a) {
@@ -64,6 +78,9 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void teleopPeriodic() {
+		int value = light1.getValue();
+		SmartDashboard.putNumber("Light1", value);
+		
 		double xSpeed = stick.getX();
 		double ySpeed = stick.getY();
 		boolean triggerPressed = stick.getTrigger();
