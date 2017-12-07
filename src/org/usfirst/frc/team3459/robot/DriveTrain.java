@@ -37,7 +37,7 @@ protected double rangeFix(double input, double limitLow, double limitHigh) {
 	return input;
 }
 protected double computeTwist(double x, double y, double twist) {
-	double rate = Math.max(x,y);
+	double rate = Math.max(Math.abs(x), Math.abs(y));
 	return ((1-rate)*twist);
 }
 

@@ -13,11 +13,15 @@ import com.kauailabs.navx.frc.AHRS;
  * "Robot")
  */
 public class Robot extends IterativeRobot {
-	UltrasonicSensor frontSensor = new UltrasonicSensor(RobotMap.frontSensor);
+	// UltrasonicSensor frontSensor = new UltrasonicSensor(RobotMap.frontSensor);
 	AHRS ahrs;
 	DriveTrain driveTrain = new DriveTrain();
 	Joystick stick = new Joystick(1);
-	AnalogInput light1 = new AnalogInput(0);
+	AnalogInput light0 = new AnalogInput(0);
+	AnalogInput light1 = new AnalogInput(1);
+	AnalogInput light2 = new AnalogInput(2);
+	AnalogInput light3 = new AnalogInput(3);
+
 	/**
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
@@ -33,6 +37,7 @@ public class Robot extends IterativeRobot {
 		DriverStation.reportWarning("Jason was here", true);
 		DriverStation.reportWarning("Kayla is here", true);
 		DriverStation.reportWarning("Rob was here", true);
+		DriverStation.reportWarning("Linda was here", true);
 	}
 
 	/**
@@ -47,16 +52,83 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousPeriodic() {
-		SmartDashboard.putNumber("Distance", frontSensor.getDistance());
+//		SmartDashboard.putNumber("Distance", frontSensor.getDistance());
+		double reentrySpeed = -0.3;
+		
+		double xnav = 0.0;
+		double ynav = reentrySpeed;
 		while (true) {
-			int value = light1.getValue();
-			SmartDashboard.putNumber("Light1", value);
-			if (value < 505) {
-				driveTrain.drive(0, 0, 0.2);
-			} else {
-				driveTrain.drive(0, 0, -0.2);
+			int value0 = light0.getValue();
+			SmartDashboard.putNumber("Light0", value0);
+			int value1 = light1.getValue();
+			SmartDashboard.putNumber("Light1", value1);
+			int value2 = light2.getValue();
+			SmartDashboard.putNumber("Light2", value2);
+			int value3 = light3.getValue();
+			SmartDashboard.putNumber("Light3", value3);
+			
+
+			boolean backleft = false;
+			boolean backright = false;
+			boolean frontleft = false;
+			boolean frontright = false;
+			
+			int threshold = 2000;
+			
+			if (value0 < threshold) {
+				backleft = true;
 			}
-			Timer.delay(0.05);
+			if (value1 < threshold) {
+				backright = true;
+			}
+			if (value2 < threshold) {
+				frontright = true;
+			}
+			if (value3 < threshold) {
+				frontleft = true;
+			}
+			
+			if (backleft) {
+				if (frontleft) {
+					xnav = -reentrySpeed;
+					ynav = 0;
+				} else if (backright) {
+					xnav = 0; 
+					ynav = reentrySpeed;
+				} else {
+					xnav = -reentrySpeed;
+					ynav = reentrySpeed;
+				}
+			} else if (backright) {
+				if (frontright) {
+					xnav = reentrySpeed;
+					ynav = 0;
+				} else {
+					xnav = reentrySpeed;
+					ynav = reentrySpeed;
+				}
+			} else if (frontright) {
+				if (frontleft) {
+					xnav = 0;
+					ynav = -reentrySpeed;
+				} else {
+					xnav = reentrySpeed;
+					ynav = -reentrySpeed;
+				}
+			} else if (frontleft) {
+				xnav = -reentrySpeed;
+				ynav = -reentrySpeed;
+			}
+			driveTrain.drive(xnav, ynav, 0.05);
+			
+			if (!isAutonomous()) {
+				xnav = 0;
+				ynav = 0;
+				driveTrain.drive(xnav, ynav, 0);
+				return;
+			}
+			
+			Timer.delay(0.10);
 		}
 	}
 
@@ -78,9 +150,14 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void teleopPeriodic() {
-		int value = light1.getValue();
+		int value = light0.getValue();
+		SmartDashboard.putNumber("Light0", value);
+		value = light1.getValue();
 		SmartDashboard.putNumber("Light1", value);
-		
+		value = light2.getValue();
+		SmartDashboard.putNumber("Light2", value);
+		value = light3.getValue();
+		SmartDashboard.putNumber("Light3", value);
 		double xSpeed = stick.getX();
 		double ySpeed = stick.getY();
 		boolean triggerPressed = stick.getTrigger();
@@ -95,9 +172,11 @@ public class Robot extends IterativeRobot {
 			ySpeed = ySpeed / 2;
 			twist = twist / 2;
 		}
-		driveTrain.drive(xSpeed, ySpeed, twist);
-	
 		
+		// work out a 45 degree offset
+		
+		driveTrain.drive(xSpeed, ySpeed, twist);
+
 	}
 
 	/**
