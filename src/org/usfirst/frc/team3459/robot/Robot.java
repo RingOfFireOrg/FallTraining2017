@@ -4,17 +4,18 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import com.kauailabs.navx.frc.AHRS;
 
 /**
  * Don't change the name of this or it won't work. (The manifest looks for
  * "Robot")
  */
 public class Robot extends IterativeRobot {
-	UltrasonicSensor frontSensor = new UltrasonicSensor(RobotMap.frontSensor);
-	AHRS ahrs;
+
 	DriveTrain driveTrain = new DriveTrain();
-	Joystick stick = new Joystick(1);
+	Joystick stick = new Joystick(RobotMap.JOYSTICK);
+	RearWheelMotor wheelMotor = new RearWheelMotor();
+	RearWheelActuator wheelActuator = new RearWheelActuator();
+
 	/**
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
@@ -27,8 +28,8 @@ public class Robot extends IterativeRobot {
 		DriverStation.reportWarning("Alan was here", false);
 		DriverStation.reportWarning("Will Was Here", false);
 		DriverStation.reportWarning("rose", false);
-		DriverStation.reportWarning("Jason was here", true);
-		DriverStation.reportWarning("Kayla is here", true);
+		DriverStation.reportWarning("Jason was here", false);
+		DriverStation.reportWarning("Kayla is here", false);
 	}
 
 	/**
@@ -43,7 +44,6 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousPeriodic() {
-		SmartDashboard.putNumber("Distance", frontSensor.getDistance());
 	}
 
 	/**
@@ -58,17 +58,8 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void teleopPeriodic() {
-		double xSpeed = stick.getX();
-		double ySpeed = stick.getY();
-		boolean triggerPressed = stick.getTrigger();
-		
-		if(!triggerPressed){   // if trigger not pressed, slow down
-			xSpeed = xSpeed / 2;   
-			ySpeed = ySpeed / 2;
-		}
-		driveTrain.drive(xSpeed, ySpeed);
-	
-		
+		engageDrive();
+		manageRearWheel();
 	}
 
 	/**
@@ -84,5 +75,59 @@ public class Robot extends IterativeRobot {
 	@Override
 	public void testPeriodic() {
 		driveTrain.testMotor(0, 0.5);
+	}
+
+	private void engageDrive() {
+		double xSpeed = stick.getX();
+		double ySpeed = stick.getY();
+		boolean triggerPressed = stick.getTrigger();
+		double twist = stick.getTwist();
+
+		xSpeed = createDeadZone(xSpeed);
+		ySpeed = createDeadZone(ySpeed);
+		twist = createDeadZone(twist);
+
+		if(!triggerPressed){   // if trigger not pressed, slow down
+			xSpeed = xSpeed / 2;
+			ySpeed = ySpeed / 2;
+			twist = twist / 2;
+		}
+
+		driveTrain.drive(xSpeed, ySpeed, twist);
+	}
+
+	private double createDeadZone(double input) {
+		if (Math.abs(input) < 0.1) {
+			return (0.0);
+		}
+		return input;
+	}
+
+	private void manageRearWheel() {
+		boolean downButtonPressed = stick.getRawButton(RobotMap.JS_BUTTON_WHEEL_DOWN);
+		SmartDashboard.putBoolean("Wheel Down button pressed", downButtonPressed);
+		boolean upButtonPressed = stick.getRawButton(RobotMap.JS_BUTTON_WHEEL_UP);
+		SmartDashboard.putBoolean("Wheel Up button pressed", upButtonPressed);
+		boolean forwardButtonPressed = stick.getRawButton(RobotMap.JS_BUTTON_WHEEL_FORWARD);
+		SmartDashboard.putBoolean("Wheel Forward button pressed", forwardButtonPressed);
+		boolean backButtonPressed = stick.getRawButton(RobotMap.JS_BUTTON_WHEEL_BACK);
+		SmartDashboard.putBoolean("Wheel Back button pressed", backButtonPressed);
+
+		if (downButtonPressed) {
+			wheelActuator.wheelDown();
+		}
+		else if (upButtonPressed) {
+			wheelActuator.wheelUp();
+		}
+
+		if (forwardButtonPressed) {
+			wheelMotor.goForward();
+		}
+		else if (backButtonPressed) {
+			wheelMotor.goBackward();
+		}
+		else {
+			wheelMotor.stop();
+		}
 	}
 }
