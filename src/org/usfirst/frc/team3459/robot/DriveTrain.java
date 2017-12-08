@@ -14,7 +14,7 @@ public class DriveTrain {
 
 	 
 	public DriveTrain() {
-		motor2.setInverted(true);
+		motor5.setInverted(true);
 	}
 	public void testMotor(int motor,double speed){
 		switch(motor){
