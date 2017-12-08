@@ -14,7 +14,9 @@ public class Robot extends IterativeRobot {
 	UltrasonicSensor frontSensor = new UltrasonicSensor(RobotMap.frontSensor);
 	AHRS ahrs;
 	DriveTrain driveTrain = new DriveTrain();
-	Joystick stick = new Joystick(1);
+	Joystick stickleft = new Joystick(1);
+	Joystick stickright = new Joystick(2);
+
 	/**
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
@@ -58,17 +60,18 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void teleopPeriodic() {
-		double xSpeed = stick.getX();
-		double ySpeed = stick.getY();
-		boolean triggerPressed = stick.getTrigger();
-		
-		if(!triggerPressed){   // if trigger not pressed, slow down
-			xSpeed = xSpeed / 2;   
-			ySpeed = ySpeed / 2;
-		}
-		driveTrain.drive(xSpeed, ySpeed);
-	
-		
+		// double xSpeed = stick.getX();
+		// double ySpeed = stick.getY();
+		// boolean triggerPressed = stick.getTrigger();
+
+		// if(!triggerPressed){ // if trigger not pressed, slow down
+		// xSpeed = xSpeed / 2;
+		// ySpeed = ySpeed / 2;
+
+		double left = stickleft.getY();
+		double right = stickright.getY();
+
+		driveTrain.drivetank(left, right);
 	}
 
 	/**

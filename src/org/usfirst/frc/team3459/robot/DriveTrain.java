@@ -1,6 +1,7 @@
 package org.usfirst.frc.team3459.robot;
 
 import edu.wpi.first.wpilibj.Victor;
+import com.ctre.CANTalon;
 
 public class DriveTrain {
 	 Victor motor0 = new Victor(0);
@@ -8,6 +9,10 @@ public class DriveTrain {
 	 Victor motor2 = new Victor(2);
 	 Victor motor3 = new Victor(3);
       
+	 CANTalon motor4 = new CANTalon(4);
+	 CANTalon motor5 = new CANTalon(5);
+
+	 
 	public DriveTrain() {
 		motor2.setInverted(true);
 	}
@@ -28,10 +33,15 @@ public class DriveTrain {
 		}
 	}
 	
-public void drive(double x, double y){
-	motor1.set(x);
-	motor3.set(x);
-	motor2.set(y);
-	motor0.set(y);
-}
+// public void drive(double x, double y){
+//	motor1.set(x);
+//	motor3.set(x);
+//	motor2.set(y);
+//	motor0.set(y);
+//}
+	public void drivetank(double left, double right){
+		motor4.set(left);
+		motor5.set(right);
+		
+	}
 }
