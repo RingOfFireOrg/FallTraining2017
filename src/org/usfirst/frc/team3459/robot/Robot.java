@@ -83,15 +83,15 @@ public class Robot extends IterativeRobot {
 		boolean triggerPressed = stick.getTrigger();
 		double twist = stick.getTwist();
 
-		xSpeed = createDeadZone(xSpeed);
-		ySpeed = createDeadZone(ySpeed);
-		twist = createDeadZone(twist);
+		xSpeed = createDeadZone(xSpeed) / 2;
+		ySpeed = createDeadZone(ySpeed) / 2;
+		twist = createDeadZone(twist) / 2;
 
-		if(!triggerPressed){   // if trigger not pressed, slow down
-			xSpeed = xSpeed / 2;
-			ySpeed = ySpeed / 2;
-			twist = twist / 2;
-		}
+//		if(!triggerPressed){   // if trigger not pressed, slow down
+//			xSpeed = xSpeed / 2;
+//			ySpeed = ySpeed / 2;
+//			twist = twist / 2;
+//		}
 
 		driveTrain.drive(xSpeed, ySpeed, twist);
 	}
@@ -112,11 +112,12 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putBoolean("Wheel Forward button pressed", forwardButtonPressed);
 		boolean backButtonPressed = stick.getRawButton(RobotMap.JS_BUTTON_WHEEL_BACK);
 		SmartDashboard.putBoolean("Wheel Back button pressed", backButtonPressed);
+		boolean triggerPressed = stick.getTrigger();
 
 		if (downButtonPressed) {
 			wheelActuator.wheelDown();
 		}
-		else if (upButtonPressed) {
+		else if (triggerPressed) {
 			wheelActuator.wheelUp();
 		}
 
