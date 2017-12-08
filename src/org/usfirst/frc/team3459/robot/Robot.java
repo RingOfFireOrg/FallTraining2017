@@ -121,13 +121,16 @@ public class Robot extends IterativeRobot {
 		}
 
 		if (forwardButtonPressed) {
+			wheelActuator.wheelDown();
 			wheelMotor.goForward();
 		}
 		else if (backButtonPressed) {
+			wheelActuator.wheelDown();
 			wheelMotor.goBackward();
 		}
 		else {
 			wheelMotor.stop();
+			wheelActuator.wheelUp();
 		}
 	}
 }
