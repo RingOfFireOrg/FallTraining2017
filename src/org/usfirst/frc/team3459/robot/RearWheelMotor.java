@@ -1,6 +1,5 @@
 package org.usfirst.frc.team3459.robot;
 
-import edu.wpi.first.wpilibj.TalonSRX;
 import com.ctre.CANTalon;
 
 public class RearWheelMotor extends CANTalon {
@@ -20,6 +19,6 @@ public class RearWheelMotor extends CANTalon {
 	}
 	
 	public void stop() {
-		set(0);
+		set(0.0);
 	}
 }
