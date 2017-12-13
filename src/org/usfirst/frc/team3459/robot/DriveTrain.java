@@ -8,50 +8,39 @@ public class DriveTrain {
 	private static final double TWIST_LIMIT_LOW = -1.0;
 	private static final double TWIST_LIMIT_HIGH = 1.0;
 
-	Victor motor0 = new Victor(0);
-	Victor motor1 = new Victor(1);
-	Victor motor2 = new Victor(2);
-	Victor motor3 = new Victor(3);
-	
 	Victor frontLeft = new Victor(2);
 	Victor frontRight = new Victor(1);
 	Victor backLeft = new Victor(3);
 	Victor backRight = new Victor(0);
 
 	public DriveTrain() {
-//		motor2.setInverted(true);
 		frontLeft.setInverted(true);
 	}
 
 	public void testMotor(int motor,double speed){
 		switch(motor){
 		case 0:
-			motor0.set(speed);
+			backRight.set(speed);
 			break;
 		case 1:
-			motor1.set(speed);
+			frontRight.set(speed);
 			break;
 		case 2:
-			motor2.set(speed);
+			frontLeft.set(speed);
 			break;
 		case 3:
-			motor3.set(speed);
+			backLeft.set(speed);
 			break;
 		}
 	}
 
 	public void drive(double x, double y, double twist){
 		double twistFactor = computeTwist(x, y, twist);
-
-//		motor1.set(rangeFix(x + twistFactor));
-//		motor3.set(rangeFix(x - twistFactor));
-//		motor2.set(rangeFix(y - twistFactor));
-//		motor0.set(rangeFix(y + twistFactor));
 		
-		frontLeft.set(-y - x - twist);
-		frontRight.set(y - x - twist);
-		backRight.set(y + x - twist);
-		backLeft.set(-y + x - twist);
+		frontLeft.set(rangeFix(y - x - twistFactor));
+		frontRight.set(rangeFix(y + x + twistFactor));
+		backRight.set(rangeFix(y - x + twistFactor));
+		backLeft.set(rangeFix(y + x - twistFactor));
 	}
 
 	private double computeTwist(double x, double y, double twist) {
