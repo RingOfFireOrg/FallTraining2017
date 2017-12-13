@@ -3,8 +3,8 @@ package org.usfirst.frc.team3459.robot;
 public class RobotMap {
 // analog ports
   static int JOYSTICK = 1;
-  static int WHEEL_MOTOR = 4;
-  static int WHEEL_ACTUATOR = 5;
+  static int WHEEL_MOTOR = 5;
+  static int WHEEL_ACTUATOR = 4;
 
   // joy stick buttons
   static int JS_BUTTON_WHEEL_UP = 7;

@@ -1,3 +1,4 @@
+
 package org.usfirst.frc.team3459.robot;
 
 import edu.wpi.first.wpilibj.Victor;
@@ -11,9 +12,15 @@ public class DriveTrain {
 	Victor motor1 = new Victor(1);
 	Victor motor2 = new Victor(2);
 	Victor motor3 = new Victor(3);
+	
+	Victor frontLeft = new Victor(2);
+	Victor frontRight = new Victor(1);
+	Victor backLeft = new Victor(3);
+	Victor backRight = new Victor(0);
 
 	public DriveTrain() {
-		motor2.setInverted(true);
+//		motor2.setInverted(true);
+		frontLeft.setInverted(true);
 	}
 
 	public void testMotor(int motor,double speed){
@@ -36,10 +43,15 @@ public class DriveTrain {
 	public void drive(double x, double y, double twist){
 		double twistFactor = computeTwist(x, y, twist);
 
-		motor1.set(rangeFix(x + twistFactor));
-		motor3.set(rangeFix(x - twistFactor));
-		motor2.set(rangeFix(y - twistFactor));
-		motor0.set(rangeFix(y + twistFactor));
+//		motor1.set(rangeFix(x + twistFactor));
+//		motor3.set(rangeFix(x - twistFactor));
+//		motor2.set(rangeFix(y - twistFactor));
+//		motor0.set(rangeFix(y + twistFactor));
+		
+		frontLeft.set(-y - x - twist);
+		frontRight.set(y - x - twist);
+		backRight.set(y + x - twist);
+		backLeft.set(-y + x - twist);
 	}
 
 	private double computeTwist(double x, double y, double twist) {
