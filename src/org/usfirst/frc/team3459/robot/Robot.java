@@ -60,13 +60,15 @@ public class Robot extends IterativeRobot {
 	public void teleopPeriodic() {
 		double xSpeed = stick.getX();
 		double ySpeed = stick.getY();
+		double zSpeed = stick.getZ();
 		boolean triggerPressed = stick.getTrigger();
 		
 		if(!triggerPressed){   // if trigger not pressed, slow down
 			xSpeed = xSpeed / 2;   
 			ySpeed = ySpeed / 2;
+			zSpeed = zSpeed / 2;
 		}
-		driveTrain.drive(xSpeed, ySpeed);
+		driveTrain.drive(xSpeed, ySpeed, zSpeed);
 	
 		
 	}

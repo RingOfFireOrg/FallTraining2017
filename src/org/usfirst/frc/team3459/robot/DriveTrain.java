@@ -28,9 +28,9 @@ public class DriveTrain {
 		}
 	}
 	
-public void drive(double x, double y){
-	motor1.set(x);
-	motor3.set(x);
+public void drive(double x, double y, double z){
+	motor1.set(x + z);
+	motor3.set(x - z);
 	motor2.set(y);
 	motor0.set(y);
 }
