@@ -37,10 +37,10 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-		wheelMotor.goBackward(3000);
-		wheelMotor.go(-1, 2000);
 		wheelMotor.goBackward(1000);
-		driveTrain.drive(0, 0, 0.5);
+		wheelMotor.go(1, 500);
+		wheelMotor.goBackward(1000);
+		wheelMotor.goForward(3000);
 	}
 
 	/**
@@ -109,6 +109,7 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putBoolean("Wheel Forward button pressed", forwardButtonPressed);
 		boolean backButtonPressed = stick.getRawButton(RobotMap.JS_BUTTON_WHEEL_BACK);
 		SmartDashboard.putBoolean("Wheel Back button pressed", backButtonPressed);
+		boolean fastButtonPressed = stick.getRawButton(RobotMap.JS_BUTTON_WHEEL_FAST);
 
 		if (downButtonPressed) {
 			wheelActuator.forceWheelDown();
@@ -125,6 +126,9 @@ public class Robot extends IterativeRobot {
 		}
 		else if (backButtonPressed) {
 			wheelMotor.goBackward();
+		}
+		else if (fastButtonPressed) {
+			wheelMotor.goForwardFast();
 		}
 		else {
 			wheelMotor.stop();
