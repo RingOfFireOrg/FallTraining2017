@@ -37,8 +37,10 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-		wheelMotor.goBackward(2000);
-		wheelMotor.go(1, 500);
+		wheelMotor.goBackward(3000);
+		wheelMotor.go(-1, 2000);
+		wheelMotor.goBackward(1000);
+		driveTrain.drive(0, 0, 0.5);
 	}
 
 	/**
