@@ -36,7 +36,8 @@ public class Robot extends IterativeRobot {
 		DriverStation.reportWarning("rose", false);
 		DriverStation.reportWarning("Jason was here", true);
 		DriverStation.reportWarning("Kayla is here", true);
-		SmartDashboard.putString("Team Name:", "Lake Street Remarkably Effiecent Most Defiently Not Clowns");
+		DriverStation.reportWarning("Rob was here", true);
+		DriverStation.reportWarning("Linda was here", true);
 	}
 
 	/**
