@@ -28,16 +28,7 @@ public class Robot extends IterativeRobot {
 	 */
 	@Override
 	public void robotInit() {
-		DriverStation.reportError("Blake was here!", false);
-		DriverStation.reportWarning("Paul and Tanya", false);
-		DriverStation.reportError("BrysonWasHere", false);
-		DriverStation.reportWarning("Alan was here", false);
-		DriverStation.reportWarning("Will Was Here", false);
-		DriverStation.reportWarning("rose", false);
-		DriverStation.reportWarning("Jason was here", true);
-		DriverStation.reportWarning("Kayla is here", true);
-		DriverStation.reportWarning("Rob was here", true);
-		DriverStation.reportWarning("Linda was here", true);
+		SmartDashboard.putString("Team Name:", "Pesky Laughing Gnomes");
 	}
 
 	/**
