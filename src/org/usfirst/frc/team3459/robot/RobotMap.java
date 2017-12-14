@@ -7,8 +7,8 @@ public class RobotMap {
   static int WHEEL_ACTUATOR = 4;
 
   // joy stick buttons
-  static int JS_BUTTON_WHEEL_UP = 7;
-  static int JS_BUTTON_WHEEL_DOWN = 8;
+  static int JS_BUTTON_WHEEL_UP = 8;
+  static int JS_BUTTON_WHEEL_DOWN = 7;
   static int JS_BUTTON_WHEEL_FORWARD = 11;
   static int JS_BUTTON_WHEEL_BACK = 12;
 
