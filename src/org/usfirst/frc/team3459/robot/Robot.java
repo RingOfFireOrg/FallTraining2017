@@ -38,6 +38,7 @@ public class Robot extends IterativeRobot {
 		DriverStation.reportWarning("Kayla is here", true);
 		DriverStation.reportWarning("Rob was here", true);
 		DriverStation.reportWarning("Linda was here", true);
+		SmartDashboard.putString("Team Name:", "Lake Street Remarkably Effiecent Defiently Not Clowns");
 	}
 
 	/**
