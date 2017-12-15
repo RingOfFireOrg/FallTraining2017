@@ -17,6 +17,7 @@ public class Robot extends IterativeRobot {
 	AHRS ahrs;
 	DriveTrain driveTrain = new DriveTrain();
 	Joystick stick = new Joystick(1);
+    Joystick stickalt = new Joystick(2);
 	AnalogInput light0 = new AnalogInput(0);
 	AnalogInput light1 = new AnalogInput(1);
 	AnalogInput light2 = new AnalogInput(2);
@@ -160,7 +161,7 @@ public class Robot extends IterativeRobot {
 		value = light3.getValue();
 		SmartDashboard.putNumber("Light3", value);
 		double xSpeed = stick.getX();
-		double ySpeed = stick.getY();
+		double ySpeed = stickalt.getY();
 		boolean triggerPressed = stick.getTrigger();
 		double twist = stick.getTwist();
 		
